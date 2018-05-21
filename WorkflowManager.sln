@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9A6867ED
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTests", "WorkflowTests\WorkflowTests.csproj", "{5F4F58C4-DCC9-4482-AE9A-2EE4664240D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{39DF6CAC-0986-4362-800B-8CF2E48932B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRPM.Web", "CRPM.Web\CRPM.Web.csproj", "{9D95CA12-EB85-4EC6-9FA9-2AA686D7176C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,10 @@ Global
 		{5F4F58C4-DCC9-4482-AE9A-2EE4664240D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F4F58C4-DCC9-4482-AE9A-2EE4664240D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F4F58C4-DCC9-4482-AE9A-2EE4664240D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D95CA12-EB85-4EC6-9FA9-2AA686D7176C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D95CA12-EB85-4EC6-9FA9-2AA686D7176C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D95CA12-EB85-4EC6-9FA9-2AA686D7176C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D95CA12-EB85-4EC6-9FA9-2AA686D7176C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +40,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{91ACA4FB-880C-4A25-8E7E-163B0DC5C3A7} = {8D433689-E548-4110-8BDC-18D6986BF2D4}
 		{5F4F58C4-DCC9-4482-AE9A-2EE4664240D4} = {9A6867ED-C121-461A-8DE5-7A66AD957CD9}
+		{9D95CA12-EB85-4EC6-9FA9-2AA686D7176C} = {39DF6CAC-0986-4362-800B-8CF2E48932B2}
 	EndGlobalSection
 EndGlobal
