@@ -4,10 +4,10 @@ namespace WorkFlowManager
 {
     public class Connection
     {
-        public State From { get; set; }
-        public State To { get; set; }
+        public WizardPage From { get; set; }
+        public WizardPage To { get; set; }
 
-        public Connection(State from, State to)
+        public Connection(WizardPage from, WizardPage to)
         {
             this.From = from;
             this.To = to;

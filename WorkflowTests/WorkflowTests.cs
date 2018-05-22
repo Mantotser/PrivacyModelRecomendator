@@ -10,64 +10,137 @@ namespace WorkflowTests
     public class WorkflowTests
     {
         [TestMethod]
-        public void SimpleInitTest()
+        public void ProceedTest()
         {
-            var initiatedWorkflow = new InitiatedWorkflow();
-            initiatedWorkflow.Name = "Simple Test";
+            var wizard = new Wizard
+            {
+                Name = "Simple Test"
+            };
 
-            InitialState initialState = new InitialState();
-            ApprovalState stateQ1 = new ApprovalState("Q1");
-            ApprovalState stateQ2 = new ApprovalState("Q2");
-            ApprovalState stateQ3 = new ApprovalState("Q3");
+            InitialWizardPage initialState = new InitialWizardPage();
+            ApprovalWizardPage pageQ1 = new ApprovalWizardPage("Q1");
+            ApprovalWizardPage pageQ2 = new ApprovalWizardPage("Q2");
+            ApprovalWizardPage pageQ3 = new ApprovalWizardPage("Q3");
 
-            State finalState1 = new FinalState();
-            State finalState2 = new FinalState();
-            State finalState3 = new FinalState();
-            State finalState4 = new FinalState();
+            WizardPage finalPage1 = new FinalWizardPage();
+            WizardPage finalPage2 = new FinalWizardPage();
+            WizardPage finalPage3 = new FinalWizardPage();
+            WizardPage finalPage4 = new FinalWizardPage();
 
-            initiatedWorkflow.InitialState = initialState;
-            initiatedWorkflow.States.Add(stateQ1);
-            initiatedWorkflow.States.Add(stateQ2);
-            initiatedWorkflow.States.Add(stateQ3);
-            initiatedWorkflow.States.Add(finalState1);
-            initiatedWorkflow.States.Add(finalState2);
-            initiatedWorkflow.States.Add(finalState3);
-            initiatedWorkflow.States.Add(finalState4);
+            wizard.InitialState = initialState;
+            wizard.States.Add(pageQ1);
+            wizard.States.Add(pageQ2);
+            wizard.States.Add(pageQ3);
+            wizard.States.Add(finalPage1);
+            wizard.States.Add(finalPage2);
+            wizard.States.Add(finalPage3);
+            wizard.States.Add(finalPage4);
 
-            Connection fromInitialToApprovalCon = new Connection(initialState, stateQ1);
+            Connection fromInitialToApprovalCon = new Connection(initialState, pageQ1);
             initialState.Start = fromInitialToApprovalCon;
 
             //Q1
-            Connection appQ1Q3 = new Connection(stateQ1, stateQ3);
-            Connection disAppQ1Q2 = new Connection(stateQ1, stateQ2);
-            stateQ1.ApprovedConnection = appQ1Q3;
-            stateQ1.DisapprovedConnection = disAppQ1Q2;
+            Connection appQ1Q3 = new Connection(pageQ1, pageQ3);
+            Connection disAppQ1Q2 = new Connection(pageQ1, pageQ2);
+            pageQ1.ApprovedConnection = appQ1Q3;
+            pageQ1.DisapprovedConnection = disAppQ1Q2;
 
             //Q2
-            Connection appQ2F2 = new Connection(stateQ2, finalState2);
-            Connection disAppQ2F1 = new Connection(stateQ2, finalState1);
-            stateQ2.ApprovedConnection = appQ2F2;
-            stateQ2.DisapprovedConnection = disAppQ2F1;
+            Connection appQ2F2 = new Connection(pageQ2, finalPage2);
+            Connection disAppQ2F1 = new Connection(pageQ2, finalPage1);
+            pageQ2.ApprovedConnection = appQ2F2;
+            pageQ2.DisapprovedConnection = disAppQ2F1;
 
             //Q3
-            Connection appQ3F4 = new Connection(stateQ3, finalState4);
-            Connection disAppQ3F3 = new Connection(stateQ3, finalState3);
-            stateQ3.ApprovedConnection = appQ3F4;
-            stateQ3.DisapprovedConnection = disAppQ3F3;
+            Connection appQ3F4 = new Connection(pageQ3, finalPage4);
+            Connection disAppQ3F3 = new Connection(pageQ3, finalPage3);
+            pageQ3.ApprovedConnection = appQ3F4;
+            pageQ3.DisapprovedConnection = disAppQ3F3;
 
-            initiatedWorkflow.Reset();
+            wizard.Reset();
 
-            Assert.AreEqual(stateQ1, initiatedWorkflow.CurrentState);
+            Assert.AreEqual(pageQ1, wizard.CurrentState);
 
-            initiatedWorkflow.CurrentState.SetData(true);
-            initiatedWorkflow.Proceed();
+            wizard.CurrentState.SetData(true);
+            wizard.Proceed();
 
-            Assert.AreEqual(stateQ3, initiatedWorkflow.CurrentState);
+            Assert.AreEqual(pageQ3, wizard.CurrentState);
 
-            initiatedWorkflow.CurrentState.SetData(false);
-            initiatedWorkflow.Proceed();
+            wizard.CurrentState.SetData(false);
+            wizard.Proceed();
 
-            Assert.AreEqual(finalState3, initiatedWorkflow.CurrentState);
+            Assert.AreEqual(finalPage3, wizard.CurrentState);
+        }
+
+        [TestMethod]
+        public void GoBackTest()
+        {
+            var wizard = new Wizard
+            {
+                Name = "Simple Test"
+            };
+
+            InitialWizardPage initialState = new InitialWizardPage();
+            ApprovalWizardPage pageQ1 = new ApprovalWizardPage("Q1");
+            ApprovalWizardPage pageQ2 = new ApprovalWizardPage("Q2");
+            ApprovalWizardPage pageQ3 = new ApprovalWizardPage("Q3");
+
+            WizardPage finalPage1 = new FinalWizardPage();
+            WizardPage finalPage2 = new FinalWizardPage();
+            WizardPage finalPage3 = new FinalWizardPage();
+            WizardPage finalPage4 = new FinalWizardPage();
+
+            wizard.InitialState = initialState;
+            wizard.States.Add(pageQ1);
+            wizard.States.Add(pageQ2);
+            wizard.States.Add(pageQ3);
+            wizard.States.Add(finalPage1);
+            wizard.States.Add(finalPage2);
+            wizard.States.Add(finalPage3);
+            wizard.States.Add(finalPage4);
+
+            Connection fromInitialToApprovalCon = new Connection(initialState, pageQ1);
+            initialState.Start = fromInitialToApprovalCon;
+
+            //Q1
+            Connection appQ1Q3 = new Connection(pageQ1, pageQ3);
+            Connection disAppQ1Q2 = new Connection(pageQ1, pageQ2);
+            pageQ1.ApprovedConnection = appQ1Q3;
+            pageQ1.DisapprovedConnection = disAppQ1Q2;
+
+            //Q2
+            Connection appQ2F2 = new Connection(pageQ2, finalPage2);
+            Connection disAppQ2F1 = new Connection(pageQ2, finalPage1);
+            pageQ2.ApprovedConnection = appQ2F2;
+            pageQ2.DisapprovedConnection = disAppQ2F1;
+
+            //Q3
+            Connection appQ3F4 = new Connection(pageQ3, finalPage4);
+            Connection disAppQ3F3 = new Connection(pageQ3, finalPage3);
+            pageQ3.ApprovedConnection = appQ3F4;
+            pageQ3.DisapprovedConnection = disAppQ3F3;
+
+            wizard.Reset();
+
+            Assert.AreEqual(pageQ1, wizard.CurrentState);
+
+            wizard.CurrentState.SetData(true);
+            wizard.Proceed();
+
+            Assert.AreEqual(pageQ3, wizard.CurrentState);
+        
+            wizard.CurrentState.SetData(false);
+            wizard.Proceed();
+
+            Assert.AreEqual(finalPage3, wizard.CurrentState);
+
+            // BACK
+            wizard.Back();
+            Assert.AreEqual(pageQ3, wizard.CurrentState);
+
+            wizard.Proceed();
+            Assert.AreEqual(finalPage3, wizard.CurrentState);
+
         }
     }
 }

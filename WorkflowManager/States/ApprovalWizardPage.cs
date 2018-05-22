@@ -7,9 +7,9 @@ using WorkflowManager;
 
 namespace WorkFlowManager
 {
-    public class ApprovalState : State
+    public class ApprovalWizardPage : WizardPage
     {
-        public ApprovalState(string name) : base(name)
+        public ApprovalWizardPage(string name) : base(name)
         {
         }
 
@@ -39,7 +39,7 @@ namespace WorkFlowManager
             }
         }
 
-        public override State Next()
+        public override WizardPage Next()
         {
             return IsApproved ? ApprovedConnection.To : DisapprovedConnection.To;
         }

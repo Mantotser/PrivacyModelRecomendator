@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WorkflowManager\WorkflowManager.csproj">
+    <ProjectReference Include="..\WorkFlowManager\WorkFlowManagerManager.csproj">
       <Project>{91ACA4FB-880C-4A25-8E7E-163B0DC5C3A7}</Project>
-      <Name>WorkflowManager</Name>
+      <Name>WorkFlowManagerManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

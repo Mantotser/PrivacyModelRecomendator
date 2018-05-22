@@ -7,17 +7,18 @@ using WorkflowManager;
 
 namespace WorkFlowManager.States
 {
-    public class FinalState : State
+    public class FinalWizardPage : WizardPage
     {
-        public FinalState(string name) : base(name)
+        public string Result { get; set; }
+        public FinalWizardPage(string name) : base(name)
         {
         }
 
-        public FinalState() : base(nameof(FinalState))
+        public FinalWizardPage() : base(nameof(FinalWizardPage))
         {
         }
 
-        public override State Next()
+        public override WizardPage Next()
         {
             return this;
         }

@@ -2,14 +2,14 @@
 
 namespace WorkflowManager
 {
-    public abstract class State
+    public abstract class WizardPage
     {
         public virtual string Name { get; set; }
         public virtual string Question { get; set; }
-        public abstract State Next();
+        public abstract WizardPage Next();
         public virtual void SetData(bool answer) { }
 
-        public State(string name)
+        public WizardPage(string name)
         {
             this.Name = name;
         }

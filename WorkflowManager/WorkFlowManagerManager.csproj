@@ -40,14 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InitiatedWorkflow.cs" />
-    <Compile Include="States\ApprovalState.cs" />
+    <Compile Include="States\ApprovalWizardPage.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="ConnectionMode.cs" />
-    <Compile Include="State.cs" />
-    <Compile Include="States\FinalState.cs" />
-    <Compile Include="States\InitialState.cs" />
-    <Compile Include="Workflow.cs" />
+    <Compile Include="States\InitialWizardPage.cs" />
+    <Compile Include="WizardPage.cs" />
+    <Compile Include="States\FinalWizardPage.cs" />
+    <Compile Include="Wizard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

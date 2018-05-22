@@ -7,9 +7,9 @@ using WorkflowManager;
 
 namespace WorkFlowManager.States
 {
-    public class InitialState : State
+    public class InitialWizardPage : WizardPage
     {
-        public InitialState() : base(nameof(InitialState))
+        public InitialWizardPage() : base(nameof(InitialWizardPage))
         {
         }
 
@@ -20,7 +20,7 @@ namespace WorkFlowManager.States
             this.Start = conn;
         }
 
-        public override State Next()
+        public override WizardPage Next()
         {
             return this.Start.To;
         }
