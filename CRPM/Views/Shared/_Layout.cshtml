@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top colorfulMenu">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,13 +16,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Home Page", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Home Page", "Index", "Home", new { area = "" }, new { @class = "navbar-brand colorWhite" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Wizard Initialization", "Index", "Wizard")</li>
-                    <li>@Html.ActionLink("Help", "Help", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav" style="color:white">
+                    <li>@Html.ActionLink("Wizard Initialization", "Index", "Wizard", null, new { @class = "colorWhite"})</li>
+                    <li>@Html.ActionLink("Help", "Help", "Home", null, new { @class = "colorWhite" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "colorWhite" })</li>
                 </ul>
             </div>
         </div>

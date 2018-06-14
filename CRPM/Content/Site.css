@@ -31,3 +31,16 @@ textarea {
     position: fixed;
     bottom: 0px;
 }
+
+.colorfulMenu {
+    background-color: coral;
+    color: aliceblue;
+}
+
+.colorWhite {
+    color: white !important;
+}
+
+.center {
+    margin: 0 auto;
+}
