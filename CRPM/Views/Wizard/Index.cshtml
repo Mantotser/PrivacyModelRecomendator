@@ -4,24 +4,49 @@
 </br>
 </br>
 </br>
+<h2 style="text-align:center; padding-bottom:50px;">
+    @{
+        if (Model.Name == "FinalWizardPage")
+        {
+            @Model.Result;
+        }
+        else
+        {
+            @Model.Name;
+        }
+    }
+</h2>
 
-@Model.Question;
-@Model.Name;
+<h4 style="text-align:center; padding-bottom:20px;">
+    @Model.Question
+</h4>
 
+<div class="col-md-offset-9 col-md-3">
+
+    @{
+        if (Model.Link != null)
+        {
+            <a href=@Model.Link class="btn btn-info" role="button" target="_blank">More information on @Model.Result</a>
+        }
+    }
+</div>
 
 @using (Html.BeginForm("Proceed", "Wizard", FormMethod.Get))
 {
-
-    <div id="radioButtonDiv">
-        @Html.LabelFor(model => model.Name)
-        <div>
-            @Html.RadioButtonFor(model => model.SelectedAnswer, true, new { id = "isPermanentAddressTrue" }) @Html.Label("isPermanentAddressTrue", "Yes")
-            @Html.RadioButtonFor(model => model.SelectedAnswer, false, new { id = "isPermanentAddressFalse" }) @Html.Label("isPermanentAddressFalse", "No")
+    <div class="center">
+        <div id="radioButtonDiv">
+            @{
+                if (Model.Name != "FinalWizardPage")
+                {
+                    @Html.RadioButtonFor(model => model.SelectedAnswer, true, new { id = "isPermanentAddressTrue" }) @Html.Label("isPermanentAddressTrue", "Yes")
+                    @Html.RadioButtonFor(model => model.SelectedAnswer, false, new { id = "isPermanentAddressFalse" }) @Html.Label("isPermanentAddressFalse", "No")
+                }
+            }
         </div>
     </div>
 
     <div class="form-actions">
-        <div class="col-md-offset-3 col-md-9">
+        <div class="col-md-offset-9 col-md-3">
             <a href="@Url.Action("GoBack")" class="btn btn-default">
                 <i class="fa fa-long-arrow-left"></i>
                 Back
@@ -32,7 +57,7 @@
             </button>
         </div>
     </div>
-}
+                }
 
 @section scripts
 {
@@ -42,6 +67,6 @@
             document.getElementById("isPermanentAddressTrue").checked = false;
             document.getElementById("isPermanentAddressFalse").checked = false;
         });
-   
-     </script>
+
+    </script>
 }

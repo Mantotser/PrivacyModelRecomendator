@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WorkFlowManager.States;
 
 namespace CRPM.Controllers
 {
@@ -37,9 +38,15 @@ namespace CRPM.Controllers
             var viewModel = new WizardViewModel
             {
                 Name = wizard.CurrentState.Name,
-                Question = wizard.CurrentState.Question
+                Question = wizard.CurrentState.Question,
             };
 
+            var fs = wizard.CurrentState as FinalWizardPage;
+            if (fs != null)
+            {
+                viewModel.Link = fs.Link;
+                viewModel.Result = fs.Result;
+            }
 
             return View("Index", viewModel);
         }

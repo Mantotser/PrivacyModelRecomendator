@@ -15,63 +15,63 @@ namespace CRPM.WizardManager
             var wizard = WizardSigleton.Instance;
 
             InitialWizardPage initialState = new InitialWizardPage();
-            ApprovalWizardPage pageQ01 = new ApprovalWizardPage("Q01")
+            ApprovalWizardPage pageQ01 = new ApprovalWizardPage("Question number 01")
             {
                 Question = "Does the adversary already know that the “victim” exists in the database?"
             };
-            ApprovalWizardPage pageQ02 = new ApprovalWizardPage("Q02")
+            ApprovalWizardPage pageQ02 = new ApprovalWizardPage("Question number 02")
             {
                 Question = "Is the relational database statistic or not?"
             };
-            ApprovalWizardPage pageQ03 = new ApprovalWizardPage("Q03")
+            ApprovalWizardPage pageQ03 = new ApprovalWizardPage("Question number 03")
             {
                 Question = "Do the sensitive attributes contain a rich variety of entries?"
             };
-            ApprovalWizardPage pageQ04 = new ApprovalWizardPage("Q04")
+            ApprovalWizardPage pageQ04 = new ApprovalWizardPage("Question number 04")
             {
                 Question = "Do more than one row entries belong to a single individual?"
             };
-            ApprovalWizardPage pageQ05 = new ApprovalWizardPage("Q05")
+            ApprovalWizardPage pageQ05 = new ApprovalWizardPage("Question number 05")
             {
                 Question = "Does the dataset contain multiple tables?"
             };
-            ApprovalWizardPage pageQ06 = new ApprovalWizardPage("Q06")
+            ApprovalWizardPage pageQ06 = new ApprovalWizardPage("Question number 06")
             {
                 Question = "Are the contents of the dataset frequently updated?"
             };
-            ApprovalWizardPage pageQ07 = new ApprovalWizardPage("Q07")
+            ApprovalWizardPage pageQ07 = new ApprovalWizardPage("Question number 07")
             {
                 Question = "Do the selected quasi-identifiers contain sensitive attributes?"
             };
-            ApprovalWizardPage pageQ08 = new ApprovalWizardPage("Q08")
+            ApprovalWizardPage pageQ08 = new ApprovalWizardPage("Question number 08")
             {
                 Question = "Are you certain that the quasi-identifiers are precisely known?"
             };
-            ApprovalWizardPage pageQ09 = new ApprovalWizardPage("Q09")
+            ApprovalWizardPage pageQ09 = new ApprovalWizardPage("Question number 09")
             {
                 Question = "Do most of the attributes contain numerical values?"
             };
-            ApprovalWizardPage pageQ10 = new ApprovalWizardPage("Q10")
+            ApprovalWizardPage pageQ10 = new ApprovalWizardPage("Question number 10")
             {
                 Question = "Are the sensitive attributes only numeric?"
             };
-            ApprovalWizardPage pageQ11 = new ApprovalWizardPage("Q11")
+            ApprovalWizardPage pageQ11 = new ApprovalWizardPage("Question number 11")
             {
                 Question = "Is the dataset’s dimensions extremely large?"
             };
-            ApprovalWizardPage pageQ12 = new ApprovalWizardPage("Q12")
+            ApprovalWizardPage pageQ12 = new ApprovalWizardPage("Question number 12")
             {
                 Question = "Are you able to contact each record owner to ask for his privacy level demands?"
             };
-            ApprovalWizardPage pageQ13 = new ApprovalWizardPage("Q13")
+            ApprovalWizardPage pageQ13 = new ApprovalWizardPage("Question number 13")
             {
                 Question = "Do you want to be able to specify protection level against specific sensitive attributes?"
             };
-            ApprovalWizardPage pageQ14 = new ApprovalWizardPage("Q14")
+            ApprovalWizardPage pageQ14 = new ApprovalWizardPage("Question number 14")
             {
                 Question = "Do you wish to be able to determine qid-grouping size and the breach probability of each sensitive attribute?"
             };
-            ApprovalWizardPage pageQ15 = new ApprovalWizardPage("Q15")
+            ApprovalWizardPage pageQ15 = new ApprovalWizardPage("Question number 15")
             {
                 Question = "Are the sensitive attributes skewed distributed?"
             };

@@ -41,6 +41,12 @@ textarea {
     color: white !important;
 }
 
-.center {
+/*.center {
     margin: 0 auto;
+}*/
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding-left: 250px;
 }
