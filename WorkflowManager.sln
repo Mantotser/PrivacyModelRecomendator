@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9A6867ED-C121-461A-8DE5-7A66AD957CD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTests", "WorkflowTests\WorkflowTests.csproj", "{5F4F58C4-DCC9-4482-AE9A-2EE4664240D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlowTests", "WorkflowTests\WorkFlowTests.csproj", "{5F4F58C4-DCC9-4482-AE9A-2EE4664240D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{39DF6CAC-0986-4362-800B-8CF2E48932B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRPM", "CRPM\CRPM.csproj", "{48465F62-564A-4190-9F63-AB1BBD894F64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkFlowMVC", "CRPM\WorkFlowMVC.csproj", "{48465F62-564A-4190-9F63-AB1BBD894F64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

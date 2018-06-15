@@ -10,6 +10,7 @@ namespace WorkFlowManager.States
     public class FinalWizardPage : WizardPage
     {
         public string Result { get; set; }
+        public string Link { get; set; }
         public FinalWizardPage(string name) : base(name)
         {
         }
