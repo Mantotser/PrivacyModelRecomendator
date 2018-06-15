@@ -9,6 +9,7 @@ namespace CRPM.Models
     {
         public string Name { get; set; }
         public string Question { get; set; }
+        public string Link { get; set; }
         public string SelectedAnswer { get; set; }
     }
 }

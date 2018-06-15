@@ -9,27 +9,39 @@
 @Model.Name;
 
 
-    @using (Html.BeginForm("Proceed", "Wizard", FormMethod.Get))
-    {
+@using (Html.BeginForm("Proceed", "Wizard", FormMethod.Get))
+{
 
-        <div id="radioButtonDiv">
-            @Html.LabelFor(model => model.Name)
-            <div>
-                @Html.RadioButtonFor(model => model.SelectedAnswer, true, new { id = "isPermanentAddressTrue" }) @Html.Label("isPermanentAddressTrue", "Yes")
-                @Html.RadioButtonFor(model => model.SelectedAnswer, false, new { id = "isPermanentAddressFalse" }) @Html.Label("isPermanentAddressFalse", "No")
-            </div>
+    <div id="radioButtonDiv">
+        @Html.LabelFor(model => model.Name)
+        <div>
+            @Html.RadioButtonFor(model => model.SelectedAnswer, true, new { id = "isPermanentAddressTrue" }) @Html.Label("isPermanentAddressTrue", "Yes")
+            @Html.RadioButtonFor(model => model.SelectedAnswer, false, new { id = "isPermanentAddressFalse" }) @Html.Label("isPermanentAddressFalse", "No")
         </div>
+    </div>
 
-        <div class="form-actions">
-            <div class="col-md-offset-3 col-md-9">
-                <a href="@Url.Action("GoBack")" class="btn btn-default">
-                    <i class="fa fa-long-arrow-left"></i>
-                    Back
-                </a>
-                <button type="submit" class="btn btn-success">
-                    Proceed
-                    <i class="fa fa-check"></i>
-                </button>
-            </div>
+    <div class="form-actions">
+        <div class="col-md-offset-3 col-md-9">
+            <a href="@Url.Action("GoBack")" class="btn btn-default">
+                <i class="fa fa-long-arrow-left"></i>
+                Back
+            </a>
+            <button type="submit" class="btn btn-success">
+                Proceed
+                <i class="fa fa-check"></i>
+            </button>
         </div>
-    }
+    </div>
+}
+
+@section scripts
+{
+    <script>
+
+        $(function () {
+            document.getElementById("isPermanentAddressTrue").checked = false;
+            document.getElementById("isPermanentAddressFalse").checked = false;
+        });
+   
+     </script>
+}
