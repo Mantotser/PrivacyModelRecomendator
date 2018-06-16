@@ -51,10 +51,13 @@
                 <i class="fa fa-long-arrow-left"></i>
                 Back
             </a>
-            <button type="submit" class="btn btn-success">
-                Proceed
-                <i class="fa fa-check"></i>
-            </button>
+            @if (Model.Name != "FinalWizardPage")
+            {
+                <button type="submit" class="btn btn-success">
+                    Proceed
+                    <i class="fa fa-check"></i>
+                </button>
+            }
         </div>
     </div>
                 }
