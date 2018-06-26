@@ -17,8 +17,8 @@ namespace CRPM
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var privacyModelsDecisionTree = new WizardManager.WizardManager();
-            privacyModelsDecisionTree.Initialize();
+            var decisionTree = new WizardManager.WizardManager();
+            decisionTree.Initialize();
         }
     }
 }
