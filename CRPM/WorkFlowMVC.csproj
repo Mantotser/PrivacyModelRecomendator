@@ -155,7 +155,7 @@
     </Compile>
     <Compile Include="Models\WizardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WizardManager\WizardManager.cs" />
+    <Compile Include="WizardManager\WizardSeed.cs" />
     <Compile Include="WizardManager\WizardSigleton.cs" />
   </ItemGroup>
   <ItemGroup>

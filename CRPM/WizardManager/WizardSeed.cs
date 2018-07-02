@@ -8,7 +8,7 @@ using WorkFlowManager.States;
 
 namespace CRPM.WizardManager
 {
-    public class WizardManager
+    public class WizardSeed
     {
         public void Initialize()
         {
