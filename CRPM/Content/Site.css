@@ -50,3 +50,7 @@ textarea {
     width: 50%;
     padding-left: 250px;
 }
+
+.paddingRadioButtons {
+    padding: 0 30px 0 10px;
+}

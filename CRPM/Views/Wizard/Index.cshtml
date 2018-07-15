@@ -38,8 +38,8 @@
             @{
                 if (Model.Name != "FinalWizardPage")
                 {
-                    @Html.RadioButtonFor(model => model.SelectedAnswer, true, new { id = "isPermanentAddressTrue" }) @Html.Label("isPermanentAddressTrue", "Yes")
-                    @Html.RadioButtonFor(model => model.SelectedAnswer, false, new { id = "isPermanentAddressFalse" }) @Html.Label("isPermanentAddressFalse", "No")
+                    @Html.RadioButtonFor(model => model.SelectedAnswer, true, new { id = "isPermanentAddressTrue" }) @Html.Label("isPermanentAddressTrue", "Yes", new { @class= "paddingRadioButtons" })
+                    @Html.RadioButtonFor(model => model.SelectedAnswer, false, new { id = "isPermanentAddressFalse" }) @Html.Label("isPermanentAddressFalse", "No", new { @class = "paddingRadioButtons" })
                 }
             }
         </div>

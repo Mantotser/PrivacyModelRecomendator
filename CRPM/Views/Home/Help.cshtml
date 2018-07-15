@@ -1,5 +1,1922 @@
-﻿@{
-    ViewBag.Title = "Help";
-}
-
-<p>Information...</p>
+﻿<div>
+    <div align="center">
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tbody>
+                <tr>
+                    <td width="623" valign="top">
+                        <p align="center">
+                            <a name="_Hlk518319789"></a>
+                            <strong style="font-size:30px">
+                                Customized Recommendation System for Optimum
+                                Privacy Model Adoption
+                            </strong>
+                        </p>
+                    </td>
+                </tr>        
+                <tr>
+                    <td>
+                        <p>
+                            A large number of companies, organizations and
+                            other entities collect and elaborate personal data
+                            from people, which are frequently published for
+                            research or other promotional purposes. This paper
+                            deals with the effective anonymization, in
+                            applications that store data in relational
+                            databases. The optimum choice of a privacy model
+                            along with its application can the effectively
+                            protect personal data and allow low percentage of
+                            information loss. In this context and, as far as
+                            the need of anonymization of a relational database
+                            is concerned, a tool, named CRPM, has been
+                            developed, which is able to propose a suitable
+                            privacy model after the data recipient has viewed
+                            and answered questions related to the dataset to
+                            protect the disclosure of sensitive data.
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br clear="all" />
+<p>
+    <strong>Introduction</strong>
+    <strong></strong>
+</p>
+<p>
+    We are currently experiencing the information age where the collection of
+    digital data from data holders such as governments, organizations or other
+    entities has created great possibilities for the humanity to evolve.
+    Gaining access to these data is of utmost importance because it can provide
+    qualitative conclusions by data mining them. However, these datasets
+    usually contain personal information. It is therefore the legal and ethical
+    responsibility of the data holder to protect individual’s anonymity by
+    carefully applying a privacy algorithm to the dataset before its release to
+    the public.
+</p>
+<p>
+    A privacy model expresses the privacy requirements a dataset should have.
+    It also proposes an anonymization algorithm, which utilizes several
+    techniques to fulfill those requirements. On the one hand excessive
+    anonymization will result in distortions to the data, thus reducing its
+    quality making it unsuitable for analysis and extraction of conclusions. On
+    the other hand, poor anonymization will leave individuals unprotected
+    against attackers. The goal is to anonymize the dataset in a way to ensure
+    an individual’s privacy and at the same time retain the data quality.
+</p>
+<p>
+    We identify that the first step to a successful anonymization is finding
+    the most suitable privacy model. To find it we need to specify the privacy
+    requirements as precise as possible and consider the user’s needs.
+    Therefore, we have developed a tool, which asks, as an input from the user,
+    the metadata of the dataset and as an output returns the most suitable
+    privacy model.
+</p>
+<p>
+    The tool helps knowledgeable or not data holders and researchers find the
+    precise privacy model their dataset need. Specifically, data holders with
+    poor knowledge for anonymization could help them find with better chances
+    and in a very short amount of time a suitable privacy model. Knowledgeable
+    data holders who already selected a privacy model but wish to get a second
+    opinion can cross check their decision. If the tool returns different
+    results, it is a sign, they need to investigate the matter further. Lastly,
+    researchers could enrich their knowledge on data privacy in relational
+    databases in one place because the tool also provides detailed information
+    on all related privacy models.
+</p>
+<p>
+    The rest of the paper is organized as follows. In Section II, we give a
+    general description on anonymity and what has been proposed over the prior
+    work privacy models, the tool supports. In Section III, we present the
+    architecture of the proposed open-source privacy model recommendation tool.
+    In Sections IV, we introduce the planning, the implementation and the
+    results of the conducted experiments. Finally, Section V contains
+    conclusions and future work.
+</p>
+<p>
+    <strong>Privacy Models</strong>
+</p>
+<p>
+    There is an enormous literature on privacy in databases. We briefly mention
+    the privacy models, the tool supports, starting with definition of
+    anonymization.
+</p>
+<p>
+    Anonymization [4] refers to the privacy preserving data publishing approach
+    that aims to de-associate the identity and sensitive data of record owners,
+    as sensitive data must be kept for data analysis. In a relational database
+    it is the process of transforming a table in the form of:
+</p>
+<p align="center">
+    <em>
+        D(Explicit Identifier, Quasi Identifier, Sensitive Attributes,
+        Non-Sensitive Attributes) to:
+    </em>
+</p>
+<p align="center">
+    <em>T (QID’, Sensitive Attributes, Non-Sensitive Attributes)</em>
+</p>
+<p>
+    where explicit identifiers are a set of attributes such as the social
+    security number that contain information able to uniquely identify an
+    individual. Quasi identifiers consist of attributes that could potentially
+    link record owners to a specific data entry when combined. For instance,
+    Sweeney [1] proved that the combination of Date of Birth, Sex and Postal
+    Code is capable to identify 87% of individuals in the United States.
+    Sensitive attributes consist of sensitive information such as disease while
+    non-sensitive attributes contain the rest. For the anonymous table we
+    remove explicit identifiers and keep the non-sensitive attributes. QID’ is
+    the result of applying anonymizing techniques to the QID attributes so that
+    multiple records become indistinguishable with respect to QID’. Other
+    options of making the original table D anonymous would be anatomization [5]
+    which de-associates the relationship between quasi-identifier and sensitive
+    attribute without editing the QID and random perturbation [6] which
+    replaces original data with synthetic.
+</p>
+<table class="table" border="0" cellspacing="0" cellpadding="0" width="308">
+    <tbody>
+        <tr>
+            <td width="25" valign="top"></td>
+            <td width="185" colspan="3" valign="top">
+                <p>
+                    Non-Sensitive
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Sensitive
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top"></td>
+            <td width="61" valign="top">
+                <p>
+                    Zip Code
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    Age
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    Nationality
+                </p>
+            </td>
+            <td width="98" valign="top"></td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    1
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    13053
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    28
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    Russian
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Heart Disease
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    2
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    13068
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    29
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    American
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Heart Disease
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    3
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    13068
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    21
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    Japanese
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Viral Infection
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    4
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    13053
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    23
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    American
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Viral Infection
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    5
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    14853
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    50
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    Indian
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    6
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    14853
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    55
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    Russian
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Heart Disease
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    7
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    14850
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    47
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    American
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Viral Infection
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    8
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    14850
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    49
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    American
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Viral Infection
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    9
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    13053
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    31
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    American
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    10
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    13053
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    37
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    Indian
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    11
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    13068
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    36
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    Japanese
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="25" valign="top">
+                <p>
+                    12
+                </p>
+            </td>
+            <td width="61" valign="top">
+                <p>
+                    13068
+                </p>
+            </td>
+            <td width="31" valign="top">
+                <p>
+                    35
+                </p>
+            </td>
+            <td width="92" valign="top">
+                <p>
+                    American
+                </p>
+            </td>
+            <td width="98" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p align="center">
+    Table 1 – Original Table
+</p>
+<br />
+<br />
+<table class="table" border="0" cellspacing="0" cellpadding="0" width="294">
+    <tbody>
+        <tr>
+            <td width="24" valign="top"></td>
+            <td width="180" colspan="3" valign="top">
+                <p align="center">
+                    Non-Sensitive
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Sensitive
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top"></td>
+            <td width="66" valign="top">
+                <p>
+                    Zip Code
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    Age
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    Nationality
+                </p>
+            </td>
+            <td width="90" valign="top"></td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    1
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    130**
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    &lt;30
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Heart Disease
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    2
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    130**
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    &lt;30
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Heart Disease
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    3
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    130**
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    &lt;30
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Viral Infection
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    4
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    130**
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    &lt;30
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Viral Infection
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    5
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    1485*
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    ≥40
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    6
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    1485*
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    ≥40
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Heart Disease
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    7
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    1485*
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    ≥40
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Viral Infection
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    8
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    1485*
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    ≥40
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Viral Infection
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    9
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    130**
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    3∗
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    10
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    130**
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    3∗
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    11
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    130**
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    3∗
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="24" valign="top">
+                <p>
+                    12
+                </p>
+            </td>
+            <td width="66" valign="top">
+                <p>
+                    130**
+                </p>
+            </td>
+            <td width="36" valign="top">
+                <p>
+                    3∗
+                </p>
+            </td>
+            <td width="78" valign="top">
+                <p>
+                    *
+                </p>
+            </td>
+            <td width="90" valign="top">
+                <p>
+                    Cancer
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p align="center">
+    Table 2 – Anonymized Table
+</p>
+<br />
+<br />
+<p>
+    We categorize the privacy models based on the privacy threats to the
+    dataset. There are three main privacy threats. The first, identity
+    disclosure [1] (i.e., or record linkage), considers that a privacy threat
+    happens when the adversary manages to make a one to one association between
+    a record owner and a record in the published dataset. The second privacy
+    threat is attribute disclosure [2] (i.e., or attribute linkage). Here the
+    adversary may not precisely associate the identity of the target. Instead
+    he/she could deduce the record’s sensitive values of the record from out of
+    the published data based on the sensitive values associated to the group
+    that the target victim belongs. A grouping of rows based on the attributes
+    Zip Code, Age, Nationality can be examined in Table 2. These privacy
+    threats assume that the attacker knows in advance that the individual’s
+    information of the users is in the dataset. On the other hand, the last
+    privacy threat, membership disclosure [3] (i.e., or table linkage), is the
+    act of correlating the data owner with the published table itself. The
+    presence or the absence of an individual in the dataset can reveal
+    sensitive information. For example, identifying the presence of the target
+    victim’s record in a table concerning patients with cancer has already
+    revealed sensitive information.
+</p>
+<p>
+    Table 3 shows the privacy models we will discuss, and their categorization
+    based on their protection against privacy threats.
+</p>
+<table class="table" border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tbody>
+        <tr>
+            <td width="35%" valign="top">
+                <p align="center">
+                    <strong><em>Privacy Model</em></strong>
+                </p>
+            </td>
+            <td width="64%" colspan="4" valign="top">
+                <p align="center">
+                    <strong><em>Privacy Threat</em></strong>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="35%" valign="top"></td>
+            <td width="19%" colspan="2">
+                <p align="center">
+                    Identity disclosure
+                </p>
+            </td>
+            <td width="20%">
+                <p align="center">
+                    Attribute disclosure
+                </p>
+            </td>
+            <td width="24%">
+                <p align="center">
+                    Membership disclosure
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>k-Anonymity</em>
+                </p>
+            </td>
+            <td width="19%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="20%" colspan="2"></td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>MultiR k-Anonymity</em>
+                </p>
+            </td>
+            <td width="19%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="20%" colspan="2"></td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>(c, t)-Isolation</em>
+                </p>
+            </td>
+            <td width="19%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="20%" colspan="2"></td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>l-Diversity</em>
+                </p>
+            </td>
+            <td width="19%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>Confidence Bounding</em>
+                </p>
+            </td>
+            <td width="19%"></td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>(X, Y) - Privacy</em>
+                </p>
+            </td>
+            <td width="19%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>(α, k)-Anonymity</em>
+                </p>
+            </td>
+            <td width="19%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>LKC- Privacy</em>
+                </p>
+            </td>
+            <td width="19%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>(k, e)-Anonymity</em>
+                </p>
+            </td>
+            <td width="19%"></td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>(ε, m)-Anonymity</em>
+                </p>
+            </td>
+            <td width="19%"></td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>t-Closeness</em>
+                </p>
+            </td>
+            <td width="19%"></td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>Personalized Privacy</em>
+                </p>
+            </td>
+            <td width="19%"></td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>FF- Anonymity</em>
+                </p>
+            </td>
+            <td width="19%"></td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>m-invariance</em>
+                </p>
+            </td>
+            <td width="19%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="20%" colspan="2">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+            <td width="24%"></td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>δ-Presence</em>
+                </p>
+            </td>
+            <td width="19%"></td>
+            <td width="20%" colspan="2"></td>
+            <td width="24%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="35%">
+                <p align="center">
+                    <em>ε-Differential Privacy</em>
+                </p>
+            </td>
+            <td width="19%"></td>
+            <td width="20%" colspan="2"></td>
+            <td width="24%">
+                <p align="center">
+                    &#10004;
+                </p>
+            </td>
+        </tr>
+        <tr height="0">
+            <td width="256"></td>
+            <td width="139"></td>
+            <td width="3"></td>
+            <td width="143"></td>
+            <td width="172"></td>
+        </tr>
+    </tbody>
+</table>
+<p align="center">
+    Table 3 – Supported Privacy models.
+</p>
+<br />
+<br />
+<p>
+    <em>k-anonymity</em>
+    [1] protects against identity disclosure attacks by ensuring that every
+    record in the table with some qid values is indistinguishable from at least
+    k − 1 other records with respect to QID. Table 2 shows a 4-anonymous table.
+</p>
+<p>
+    <em>MultiRelational k-anonymity </em>
+    [8] studies privacy of personal data in multiple relational tables. Their
+    model makes sure that each record owner will have at least k-1 other record
+    owners with the same QID in the join of all the tables they appear.
+</p>
+<p>
+    The model <em>(c, t) isolation</em> [9] was developed to protects attacks
+    against a statistical database. They propose that, for an adversary, every
+    point in the dataset should be indistinguishable from at least t−1 other
+    points. Point is considered the position of a record owner in the database
+    and t is a threshold chosen according to social considerations. It is most
+    effective if the statistical database has numerical attributes because it
+    considers distances among data records.
+</p>
+<p>
+    To prevent attribute linkage attacks Machanavajjhala [2] proposes the    <em>l-diversity</em> privacy model. They showed that an attacker can
+    discover the values of sensitive attributes when there is little or no
+    diversity. In Table 2 the fourth group of QID in the table has the same
+    sensitive attribute. Therefore, privacy is breached if an attacker can
+    associate the target victim with that group. The model requires that every
+    qid group must contain at least l distinct sensitive values. In addition,
+    l-diversity satisfies k-anonymity, where k=l, because each qid group
+    contains at least l records.
+</p>
+<p>
+    Ke Wang [11] proposed <em>confidence bounding, </em>a privacy model which
+    specifies privacy templates and limits the confidence of inferring
+    sensitive properties against threats caused by data mining abilities.
+</p>
+<p>
+    These privacy templates specify the sensitive property to be protected, the
+    attributes identifying a group of individuals, and a maximum threshold for
+    the confidence of inferring the sensitive property given the identifying
+    attributes.
+</p>
+<p>
+    The above privacy models assume that each record represents a distinct
+    individual. However, there are cases that several records could represent
+    the same data owner. Therefore, each group of k records in a k-anonymous
+    table would represent fewer than k data owners. To overcome this problem Ke
+    Wang [7] proposed <em>(X-Y) Privacy</em> which specifies that each value on
+    X will be linked to at least k distinct values on Y.
+</p>
+<p>
+    Wong [4] proposed <em>(a, k)-anonymity</em> model to protect both identity
+    and attribute disclosure. The privacy model requires every qid in a table T
+    to be shared by at least k records and conf(qid → s) ≤ a for any sensitive
+    value s, where conf(qid → s) denotes the percentage of records containing s
+    in the qid group. The rest, k and a are thresholds specified by the data
+    holder.
+</p>
+<p>
+    In real life privacy attacks, it is very difficult for an adversary to
+    acquire all the information in QID of the target. Based on that intuition
+    Mohammed [12] proposes <em>LKC-privacy</em>, where L indicates the maximum
+    values of the QID attributes the adversary knows about the target victim.
+    LKC ensures that every combination of values in QIDj ⊆ QID with maximum
+    length L in the data table T is shared by at least K records, and the
+    confidence of inferring any sensitive values in S is not greater than C.
+</p>
+<p>
+    Most of the above privacy models assume the dataset contains categorical
+    sensitive attributes. Zhang [13] proposes <em>(k, e)-anonymity</em> to
+    address numerical sensitive attributes such as the salary. The privacy
+    model splits the dataset into groups making sure that each group will
+    contain at least k different sensitive values with a range of at least e.
+</p>
+<p>
+    The previous model ignores the classification of sensitive vales within a
+    range λ. The problem is that if some sensitive values occur frequently
+    within a subrange of λ, then the adversary can infer the subrange in a
+    group. Jiexing [14] defines this type of attribute linkage attack as
+    proximity attack. To protect a dataset from this <em>(ε, m)-anonymity</em>
+    is introduced which demands that given a QI-group G, for every sensitive
+    value x in G, at most 1/m of the tuples in G can have sensitive values
+    “similar” to x, where the similarity is controlled by the threshold ε.
+</p>
+<p>
+    Li [15] observed that when the overall distribution of sensitive attributes
+    is uneven, l-diversity is not effective against attribute linkage attacks.
+    He proposed <em>t-closeness</em>, a privacy model which requires that the
+    distribution of a sensitive attribute in any equivalence class must be
+    close to the distribution of the attribute in the overall table.
+    t-closeness uses the Earth Mover Distance (EMD) function to measure the
+    closeness between two distributions of sensitive values, and requires the
+    closeness to be within t.
+</p>
+<p>
+    Xiao and Yu [16] presented <em>Personalized Privacy,</em> to allow each
+    record owner to specify his/her own privacy level. The previous models
+    focus on a universal approach. As a result, the anonymized dataset could be
+    offering insufficient protection to a subset of people, while applying
+    excessive anonymization to another subset. Each sensitive attribute has a
+    taxonomy tree where each record owner specifies his guarding node in the
+    tree to perform the minimum generalization for satisfying everybody’s
+    requirements.
+</p>
+<p>
+    Most privacy models assume that the original table can be divided into QID
+    and sensitive attributes. However, this assumption is not correct when an
+    attribute contains both sensitive values and quasi-identifying values.
+    Based on the above assumptions Wang [17] proposed <em>FF-anonymity</em>
+    privacy model which models identifying/sensitive information at the value
+    level, instead of at the attribute level.
+</p>
+<p>
+    Xiao and Tao [18] study the privacy issues in the dynamic data republishing
+    model, in which they support re-publication of the microdata, after it has
+    been updated with insertions and deletions. They developed a new
+    generalization principle <em>m-invariance</em> that effectively limits the
+    risk of privacy disclosure in re-publication.
+</p>
+<p>
+    To prevent membership disclosure, Ercan Nergiz [3] proposed the    <em>δ-presence</em> privacy model. The general idea behind it is that the
+    probability of inferring the presence of any potential target victim’s
+    record should be bound within a specified range δ = (δmin, δmax). δ is
+    actually the primary value of anonymization and can has the property of to
+    be interpreted in terms of increased risk of disclosure. This enables the
+    connection between the human-understandable policy and mathematical sound
+    standards for anonymity.
+</p>
+<p>
+    Dwork [19] proposed <em>ε</em><em>-differential privacy</em> based on the
+    intuition that nothing about an individual should be learnable from a
+    statistical database that cannot be learned without access to the database.
+    The privacy model ensures data owners that they may submit their personal
+    information to the database securely knowing that almost nothing can be
+    discovered from the database with their information that could not be
+    discovered without their information in it. It also ensures that attackers
+    with random background knowledge have no power against the anonymized
+    dataset.
+</p>
+<p>
+    <strong></strong>
+</p>
+<p>
+    <strong></strong>
+</p>
+<p>
+    <strong>Proposed System</strong>
+</p>
+<p>
+    The<strong> </strong>tool, CRPM (Customized Recommendation System for
+    Optimum Privacy Model Adoption) is an ASP.Net MVC web application. It was
+    developed using Microsoft Visual Studio Community 2017 with C# as the main
+    programming language<em>.</em> In the next paragraph we will analyze its
+    architecture and inner structure.
+</p>
+<p align="center">
+    <img width="312"
+         height="133"
+         src="~/Pictures/architecture.jpg"
+         alt="architecturexml (4)" />
+</p>
+<p align="center">
+    Fig 1 - CRPM Architecture
+</p>
+<br />
+<p>
+    CRPM, follows all modern principles and is highly extendible for any
+    researcher who is interested in effective data anonymity. As a solution,
+    CRPM, is partitioned to different projects with respect to the Layered
+    pattern. WorkFlowManager is the Domain layer that incorporates both
+    behavior and data. It is an abstract layer and is agnostic to the upper
+    layers as shown in figure 1. To continue, WorkFlowMVC is the presentation
+    layer. We decided to apply the MVC (Model-View-Controller) pattern due to
+    its wide usability in web applications, better separation of concerns and
+    in order to decouple the domain with the presented entities. WorkFlowTests
+    is the last project in our solution and contains unit tests. Unit tests are
+    highly important not only to the tool itself but also to the research
+    community. They provide documentation to the system, make the process agile
+    and improve the quality of the code.
+</p>
+<p>
+    CRPM, ultimately, is an implementation of a decision tree of carefully
+    selected questions. These questions were crafted to eliminate step by step
+    privacy models. Figure 2 represents the workflow of the questions. Round
+    shapes represent the questions and square the answers. We discuss with
+    better detail the figure 2, in the following paragraph with the questions
+    and answers its bullet represent.
+</p>
+<p align="center">
+    <img width="280"
+         height="382"
+         src="~/Pictures/flow.png"
+         alt="Capture1" />
+</p>
+<p align="center">
+    Fig. 2 - WorkFlow Questions
+</p>
+<p>
+    1. <em>Q01</em>: Does the adversary already know that the target victim
+    exists in the database?
+</p>
+<p>
+    From the feedback of the user we can now know if the privacy model belongs
+    to the membership disclosure attack model or not.<em></em>
+</p>
+<p>
+    2. <em>Q02</em>: Is the relational database statistic or not?
+</p>
+<p>
+    If yes, then the tool suggests ε-differential privacy <em>(A01)</em>, else
+    the tool returns δ-presence <em>(A02)</em>.
+</p>
+<p>
+    3. <em>Q03</em>: Do the sensitive attributes contain a rich variety of
+    entries?
+</p>
+<p>
+    The purpose of the question is to determine if the privacy model belongs to
+    identity disclosure, if the answer is negative, or attribute disclosure if
+    the answer is positive. Questions 04 to 10 are about identity disclosure,
+    whereas 11 to 15 are about attribute disclosure.
+</p>
+<p>
+    4. <em>Q04</em>: Do more than one row entries belong to a single
+    individual?
+</p>
+<p>
+    If the answer is positive, the most acceptable privacy model is (X -Y)
+    Privacy <em>(A03)</em>.
+</p>
+<p>
+    5. <em>Q05</em>: Does the dataset contain multiple tables?
+</p>
+<p>
+    If yes, then the tool suggests MultiRelational k-Anonymity <em>(A04)</em>.
+</p>
+<p>
+    6. <em>Q06</em>: Are the contents of the dataset frequently updated?
+</p>
+<p>
+    If yes, then the proper model is m-invariance <em>(A05)</em>.
+</p>
+<p>
+    7. <em>Q07</em>: Do the selected quasi-identifiers contain sensitive
+    attributes?
+</p>
+<p>
+    If yes, the most suitable model is FF-Anonymity <em>(A06)</em>.
+</p>
+<p>
+    8. <em>Q08</em>: Are you certain that the quasi-identifiers are precisely
+    known?
+</p>
+<p>
+    If yes, the tool returns k-anonymity <em>(A07).</em>
+</p>
+<p>
+    9. <em>Q09</em>: Do most of the attributes contain numerical values?
+</p>
+<p>
+    If yes, (c, t)-isolation is returned <em>(A08).</em>
+</p>
+<p>
+    10. <em>Q10</em>: Are the sensitive attributes only numeric?
+</p>
+<p>
+    If the answer is positive then (e, m)-anonymity <em>(A09) </em>is returned
+    else (k, e)-anonymity <em>(A10)</em> is returned.
+</p>
+<p>
+    11. <em>Q11</em>: Is the dataset’s dimensions extremely large?
+</p>
+<p>
+    If yes, the tool suggests LKC-privacy <em>(A11)</em>.
+</p>
+<p>
+    12. <em>Q12</em>: Are you able to contact each record owner to ask for his
+    privacy level demands?
+</p>
+<p>
+    If yes, then the Personalized Privacy Preservation model <em>(A12)</em> is
+    suitable.
+</p>
+<p>
+    13. <em>Q13</em>: Do you want to be able to specify protection level
+    against specific sensitive attributes?
+</p>
+<p>
+    If yes, then the suitable model is Confidence Bounding <em>(A13)</em>.
+</p>
+<p>
+    14. <em>Q14</em>: Do you wish to be able to determine qid-grouping size and
+    the breach probability of each sensitive attribute?
+</p>
+<p>
+    If yes, then (a, k)-anonymity <em>(A14)</em> is returned.
+</p>
+<p>
+    15. <em>Q15</em>: Are the sensitive attributes skewed distributed?
+</p>
+<p>
+    Lastly, if the users respond positively, t-closeness <em>(A15) will</em> be
+    returned, otherwise l-diversity <em>(A16)</em>.
+</p>
+<p>
+    In the lifetime of CRPM’s session there is only one instance of the
+    decision tree (named decisionTree). Using the singleton pattern, we
+    instantiate this variable on the Global.asax.cs file which is one of the
+    first classes to be executed in an ASP.NET MVC application. The code block
+    is depicted in figure 3:
+</p>
+<table class="table" border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr>
+            <td width="299">
+                <p>
+                    1. var decisionTree = new WizardManager.WizardSeed();
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="299">
+                <p>
+                    2. decisionTree.Initialize();
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p align="center">
+    Fig. 3 - Singleton Code Block
+</p>
+<p>
+    Inside the WizardManager class, we can extend the tree structure with more
+    questions, answers and information in privacy models.
+</p>
+<p>
+    So far, we have examined the architecture and design of CRPM. Following up
+    we will analyze a use case as a specification tool for specifying the
+    functional requirements of the software system. Suppose a data holder
+    wishes to publish the anonymized version of a relational table concerning
+    cancer survival statistics in his local area, the last 5 years. For this
+    use case the examined sample was selected from random hospitals. Therefore,
+    attackers cannot possibly know whether the possible target victim was part
+    of the statistical data entries. These metadata and only are sufficient for
+    the tool to present a suitable privacy model. Starting with question Q01
+    the data holder will respond negatively and the tool will direct him to the
+    top left subtree of figure 2, which is Q02. Q02 will ask the user if the
+    table is statistic or not and the user will respond positively. CRPM will
+    finally suggest the data holder that the optimum privacy model to adopt is
+    ε-differential privacy <em>(A01)</em>. Note that these answers constitute
+    the path to the tree as shown in figure 2. Lastly, the resulting page will
+    provide the user with external <em>Uniform Resource Locator</em> containing
+    further information regarding the privacy model.
+</p>
+<p>
+    <strong>Experiment</strong>
+</p>
+<p>
+    <strong></strong>
+</p>
+<p>
+    <strong></strong>
+</p>
+<p>
+    <strong>Setup</strong>
+    <strong></strong>
+</p>
+<p>
+    For the experimental setup of CRPM we attended the National Technical
+    University of Athens (NTUA). 30 out of 125 undergraduate students who were
+    related to information security courses decided to participate in our
+    survey. The experimental setup is separated to three phases, namely    <em>PHASE I, II, </em>and<em> III </em>respectively.
+</p>
+<p>
+    Starting with <em>PHASE I</em>, we had the students find a public
+    relational database. Τhey carefully examined it and selected the privacy
+    model they found most suitable. We also accommodated for those who did not
+    have previous knowledge on data privacy and provided them with all the
+    necessary information. For <em>PHASE II</em> we granted the students access
+    to CRPM. We asked them to carefully go through the wizard’s questions and
+    finally store the outcome. Finally, for <em>PHASE III</em> we prepared a
+    questionnaire and asked the students to go through it. We tried to make
+    sure, the survey’s questions were specific, objective and understandable.
+    Our goal was to get a feedback from the students and uncover answers
+    relative to CRPM.
+</p>
+<p>
+    <strong></strong>
+</p>
+<p>
+    <strong></strong>
+</p>
+<p>
+    <strong>Results</strong>
+</p>
+<p>
+    We present the questions and answers according to the proposed experiment.
+</p>
+<p>
+     1. How helpful was the information page included in CRPM?
+</p> 
+<p>
+    <img width="291"
+         height="104"
+         src="~/Pictures/1.png" />
+    <br clear="ALL" />
+</p>
+<p>
+    Fig. 4 – Answers to Question 1
+</p>
+<p>
+    · 21 students (70%) chose “Extremely helpful”
+</p>
+<p>
+    · 5 students (16%) chose “Very helpful”
+</p>
+<p>
+    · 2 students (7%) chose “Somewhat helpful”
+</p>
+<p>
+    · 2 students (7%) chose “Not so helpful”
+</p>
+<p>
+    · No students (0%) chose “Not at all helpful”
+</p>
+<p>
+    2. Overall, how easy to use do you find using CRPM?
+</p>
+<p>
+    <img width="298"
+         height="99"
+         src="~/Pictures/2.png" />
+    <br clear="ALL" />
+</p>
+<p>
+    Fig. 5 – Answers to Question 2
+</p>
+<p>
+    · 21 students (70%) chose “Very easy”
+</p>
+<p>
+    · 4 students (13%) chose “Somewhat easy”
+</p>
+<p>
+    · 3 students (10%) chose “Neither easy nor difficult”
+</p>
+<p>
+    · 2 students (7%) chose “Somewhat difficult”
+</p>
+<p>
+    · No students (0%) chose “Very difficult”
+</p>
+<p>
+    3. How close are your results over the database against CRPM’s results?
+</p>
+<table cellpadding="0" cellspacing="0" align="left">
+    <tbody>
+        <tr>
+            <td width="1" height="0"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <img width="297"
+                     height="127"
+                     src="~/Pictures/3.png" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br clear="ALL" />
+<p >
+    Fig. 6 – Answers to Question 3
+</p>
+<p>
+    · 10 students (33%) chose “Identical match”
+</p>
+<p>
+    · 6 students (20%) chose “Closer or equal than 2 nodes”
+</p>
+<p>
+    · 7 students (23%) chose “Closer or equal than 4 nodes”
+</p>
+<p>
+    · 4 students (14%) chose “Closer or equal than 6 nodes”
+</p>
+<p>
+    · 3 students (10%) chose “Further than 6 nodes”
+</p>
+<p>
+    4. Overall, how satisfied or dissatisfied are you with CRPM?
+</p>
+<table cellpadding="0" cellspacing="0">
+    <tbody>
+        <tr>
+            <td width="724" height="0"></td>
+        </tr>
+        <tr>
+            <td>
+                <img width="300"
+                     height="161"
+                     src="~/Pictures/4.png" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br clear="ALL" />
+<p>
+    Fig. 7 – Answers to Question 4
+</p>
+<p>
+    · 18 students (60%) chose “Very satisfied”
+</p>
+<p>
+    · 6 students (20%) chose “Somewhat satisfied”
+</p>
+<p>
+    · 4 students (13%) chose “Neither satisfied nor dissatisfied”
+</p>
+<p>
+    · 1 student (3.5%) chose “Somewhat dissatisfied”
+</p>
+<p>
+    · 1 student (3.5%) chose “Very dissatisfied”
+</p>
+<p>
+    5. How likely would you recommend CRPM to another researcher?
+</p>
+<p>
+    <img width="300"
+         height="141"
+         src="~/Pictures/5.png" />
+    <br clear="ALL" />
+</p>
+<p>
+    Fig. 8 – Answers to Question 5
+</p>
+<p>
+    · 11 students (37%) chose “Very likely”
+</p>
+<p>
+    · 9 students (30%) chose “Somewhat likely”
+</p>
+<p>
+    · 7 students (22.5%) chose “Neither likely nor unlikely”
+</p>
+<p>
+    · 2 students (7%) chose “Somewhat unlikely”
+</p>
+<p>
+    · 1 student (3.5%) chose “Very unlikely”
+</p>
+<p>
+    <strong>Discussion</strong>
+    <strong></strong>
+</p>
+<p>
+    The experimental procedure required 3 phases. Students followed the
+    procedure literally and no problem occurred during the phases.
+</p>
+<p>
+    Starting with <em>Question 1,</em> we expected the positive results as CRPM
+    contains a separate section with information on all supported privacy
+    models and a rich variety of material in data privacy. In addition,    <em>Question 2</em> was also expected. CRPM offers a simple and
+    user-friendly interface. Students experienced no difficulty in the use of
+    the tool. Furthermore, extracting metadata from a relational database is
+    difficult and each researcher gives unique results. We tried to design a
+    workflow as precise as possible given a set of metadata and privacy
+    requirements. The positive feedback from <em>Question 3</em> is an
+    affirmative indicator of our good work on the workflow. Lastly, for    <em>Questions 4 and 5</em> the positive feedback is somewhat related to the
+    results in the previous 3 questions. These depict the well performance of
+    CRPM and trust, the research community has for the tool.
+</p>
+<p>
+    <strong>Conclusion</strong>
+</p>
+<p>
+    Publishing collected data in such a way that unquestionably ensures total
+    anonymity is still an open matter. Many privacy models have been proposed
+    as far as relational databases are concerned. We have examined the most
+    accepted of them and categorized them based on the privacy threat they
+    protect. Identifying correctly the privacy requirements of the dataset and
+    selecting a suitable anonymization algorithm insures data anonymity on the
+    one hand and high data quality on the other hand. Consequently, we
+    developed CRPM, a web tool that aims to propose the most suitable privacy
+    model based on the dataset’s attributes. CRPM is highly extensible. The
+    main and most useful extension would be to include privacy models for all
+    types of data storage. Lastly, it could import the dataset, besides user
+    input, to infer useful information and export conclusions.
+</p>
+<p>
+    <em>References:</em>
+</p>
+<p>
+    [1] L. Sweeney. k-Anonymity: A model for protecting privacy.
+    <em>
+        International Journal of Uncertainty, Fuzziness and Knowledge-based
+        Systems
+    </em>
+    , 10(5):557–570, 2002.
+</p>
+<p>
+    [2] A. Machanavajjhala, D. Kifer, J. Gehrke, and M. Venkitasubramaniam.
+    "l-diversity: Privacy beyond k-anonymity.    <em>ACM Transactions on Knowledge Discovery from Data (TKDD)</em>, 1(1),
+    March 2007.
+</p>
+<p>
+    [3] M. Ercan Nergiz, M. Atzori, and C. W. Clifton. Hiding the presence of
+    individuals from shared databases.
+    <em>
+        In Proc. of ACM International Conference on Management of Data (SIGMOD)
+    </em>
+    , pages 665–676, Vancouver, Canada, 2007.
+</p>
+<p>
+    [4] R. C. W. Wong, J. Li., A. W. C. Fu, and K. Wang. (α, k)-anonymity: An
+    enhanced k-anonymity model for privacy preserving data publishing.
+    <em>
+        ACM SIGKDD International Conference on Knowledge Discovery and Data
+        Mining,
+    </em>
+    2006<em>.</em><em></em>
+</p>
+<p>
+    [5] X. Xiao and Y. Tao. Anatomy: Simple and effective privacy preservation.    <em>In Proc. of the 32nd Very Large Data Bases (VLDB)</em>, Seoul, Korea,
+    September 2006.
+</p>
+<p>
+    [6] X. Xiao, Y. Tao, and M. Chen. Optimal random perturbation at multiple
+    privacy levels. <em>In Proc. of the 35th Very Large Data Bases (VLDB)</em>,
+    pages 814–825, 2009.
+</p>
+<p>
+    [7] K. Wang and B. C. M. Fung. Anonymizing sequential releases.
+    <em>
+        In Proc. of the 12th ACM SIGKDD International Conference on Knowledge
+        Discovery and Data Mining (SIGKDD)
+    </em>
+    , pages 414–423, Philadelphia, PA, August 2006.
+</p>
+<p>
+    [8] M. Ercan Nergiz, C. Clifton, and A. Erhan Nergiz. Multirelational
+    k-anonymity.
+    <em>
+        In Proc. of the 23rd International Conference on Data Engineering
+        (ICDE)
+    </em>
+    , pages 1417–1421, Istanbul, Turkey, 2007.
+</p>
+<p>
+    [9] S. Chawla, C. Dwork, F. McSherry, A. Smith, and H. Wee. Toward privacy
+    in public databases.    <em>In Proc. of Theory of Cryptography Conference (TCC)</em>, pages
+    363–385, Cambridge, MA, February 2005.
+</p>
+<p>
+    [10] M. Terrovitis and N. Mamoulis. Privacy preservation in the publication
+    of trajectories.
+    <em>
+        In Proc. of the 9th International Conference on Mobile Data Management
+        (MDM)
+    </em>
+    , pages 65–72, April 2008.
+</p>
+<p>
+    [11] K. Wang, B. C. M. Fung, and P. S. Yu. Handicapping attacker’s
+    confidence:
+    <em>
+        An alternative to k-anonymization. Knowledge and Information Systems
+        (KAIS)
+    </em>
+    , 11(3):345–368, April 2007
+</p>
+<p>
+    [12] N. Mohammed, B. C. M. Fung, P. C. K. Hung, and C. K. Lee. Anonymizing
+    healthcare data: A case study on the blood transfusion service.
+    <em>
+        In Proc. of the 15th ACM SIGKDD International Conference on Knowledge
+        Discovery and Data Mining (SIGKDD)
+    </em>
+    , pages 1285–1294, Paris, France, June 2009.
+</p>
+<p>
+    [13] Q. Zhang, N. Koudas, D. Srivastava, and T. Yu. Aggregate query
+    answering on anonymized tables.
+    <em>
+        In Proc. of the 23rd IEEE International Conference on Data Engineering
+        (ICDE)
+    </em>
+    , April 2007.
+</p>
+<p>
+    [14] J. Li, Y. Tao, and X. Xiao. Preservation of proximity privacy in
+    publishing numerical sensitive data.
+    <em>
+        In Proc. of the ACM International Conference on Management of Data
+        (SIGMOD)
+    </em>
+    , pages 437–486, Vancouver, Canada, June 2008.
+</p>
+<p>
+    [15] N. Li, T. Li, and S. Venkatasubramanian. t-closeness: Privacy beyond
+    k-anonymity and "l-diversity.
+    <em>
+        In Proc. of the 21st IEEE International Conference on Data Engineering
+        (ICDE), Istanbul, Turkey, April 2007.
+    </em>
+    <em></em>
+</p>
+<p>
+    [16] X. Xiao and Y. Tao. Personalized privacy preservation.
+    <em>
+        In Proc. of ACM International Conference on Management of Data
+        (SIGMOD), Chicago, IL, 2006.
+    </em>
+</p>
+<p>
+    [17] K. Wang, Y. Xu, A. W. C. Fu, and R. C. W. Wong. ff-anonymity: When
+    quasi-identifiers are missing.
+    <em>
+        In Proc. of the 25th IEEE International Conference on Data Engineering
+        (ICDE), March 2009.
+    </em>
+    <em></em>
+</p>
+<p>
+    [18] X. Xiao and Y. Tao. m-invariance: Towards privacy preserving
+    republication of dynamic datasets.
+    <em>
+        In Proc. of ACM International Conference on Management of Data
+        (SIGMOD), Beijing, China, June 2007.
+    </em>
+</p>
+<p>
+    [19] C. Dwork. Differential privacy: A survey of results.
+    <em>
+        In Proc. of the 5th International Conference on Theory and Applications
+        of Models of Computation (TAMC)
+    </em>
+    , pages 1–19, Xian, China, April 2008.
+</p>
